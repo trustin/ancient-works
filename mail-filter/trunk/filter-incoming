@@ -1,0 +1,9 @@
+#!/bin/sh
+export LANG=ko_KR.UTF-8
+H="`dirname $0`"
+java \
+  -server -Xms8m -Xmx768m -XX:+AggressiveOpts -XX:+UseBiasedLocking \
+  -XX:+UseParallelGC -XX:+UseAdaptiveSizePolicy -XX:+UseFastAccessorMethods \
+  -cp "$H/bin:$H/lib/mail.jar:$H/lib/commons-io-1.4.jar" \
+  net.gleamynode.mailfilter.IncomingMessageFilter \
+  "$@"

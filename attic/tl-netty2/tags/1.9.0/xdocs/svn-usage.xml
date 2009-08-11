@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<document>
+	<properties>
+		<title>Source Repository</title>
+	</properties>
+
+	<body>
+		<section name="Web Access">
+			<p>
+				<a href="http://amiryo.com/svn/trustin/tl-netty2/trunk/">http://amiryo.com/svn/trustin/tl-netty2/trunk/</a>
+			</p>
+		</section>
+		<section name="Anonymous Access">
+			<p>
+				This project's Subversion repository can be checked out through Subversion client with the following instruction set.
+			</p>
+			<source>svn co http://amiryo.com/svn/trustin/tl-netty2/trunk</source>
+		</section>
+	</body>
+</document>

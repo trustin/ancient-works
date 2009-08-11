@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+    <extend>${basedir}/../project.xml</extend>
+    <artifactId>lorentz-extension-java-1.3</artifactId>
+
+	<name>Lorentz Converter Extension for JDK 1.3</name>
+	<shortDescription>
+	    Lorentz Converter Extension for JDK 1.3
+	</shortDescription>
+	<description>
+		Lorentz Converter Extension for JDK 1.3
+	</description>
+
+	<dependencies>
+	    <dependency>
+	        <groupId>lorentz</groupId>
+	        <artifactId>lorentz-core</artifactId>
+	        <version>3.0.0-SNAPSHOT</version>
+	    </dependency>
+    </dependencies>
+    
+    <build>
+    	<resources>
+    		<resource>
+    			<directory>src/resources</directory>
+    		</resource>
+    	</resources>
+    </build>
+</project>

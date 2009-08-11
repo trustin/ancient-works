@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+	<properties>
+		<title>Features</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+	<body>
+		<section name="Features">
+			<p>
+			Netty 2's interesting features are: (Please request me if there should be more)
+			<ul>
+				<li><strong>Event-based API</strong>: Netty handles all low level I/O call</li>
+				<li><strong>Separation of message format and workflow</strong></li>
+				<li><strong>Protocol messages are represented as classes</strong>: Protocol implementation in object-oriented way!
+					<ul>
+						<li>Polymorphism enables 'pluggable protocol'.</li>
+						<li>Inheritance enables 'message part hierarchy'.</li>
+					</ul>
+				</li>
+				<li><strong>Java NIO</strong>: Better scalability</li>
+				<li><strong>Built-in thread pool</strong>:
+					<ul>
+						<li>I/O and event processing threads are separated.</li>
+						<li>All thread priorities are configurable.</li>
+					</ul>
+				</li>
+				<li><strong>Direct byte buffer pooling</strong>: No direct buffer allocation overhead</li>
+				<li><strong>Customizable event dispatcher</strong>: Flexible thread scheduling</li>
+				<li><strong>'Write buffer full' prevention</strong>:
+					<ul>
+						<li>Detects too slow clients</li>
+						<li>Throttles outgoing messages to avoid resource shortage</li>
+					</ul>
+				</li>
+				<li><strong>JMX-compliant</strong>: Thread pools and common configuration are MBean.</li>
+				<li><strong>Supports <a href="http://jakarta.apache.org/commons/logging/">Apache Jakarta Commons Logging</a>.</strong></li>
+			</ul>
+			</p>
+			<p>
+			Netty 2 is good for: (Please report me if there are more)
+			<ul>
+				<li>implementing both legacy and non-legacy protocols fast but in high-quality</li>
+				<li>implementing pluggable protocols (different message formats with one workflow)</li>
+				<li>creating test cases both for message formats and protocol workflow</li>
+			</ul>
+			</p>
+		</section>
+	</body>
+</document>

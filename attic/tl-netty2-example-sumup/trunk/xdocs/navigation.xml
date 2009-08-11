@@ -1,0 +1,13 @@
+<project>
+  <body>
+  	<links>
+  		<item name="Home" href="http://gleamynode.net/dev/"/>
+	</links>
+
+	<menu name="Navigation">
+		<item name="Getting Started"     href="/index.html"/>
+		<item name="License"             href="/license.html"/>
+		<item name="SVN Repository"      href="/svn-usage.html"/>
+	</menu>
+  </body>
+</project>

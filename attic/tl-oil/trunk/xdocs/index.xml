@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+	<properties>
+		<title>Overview</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+	<body>
+		<section name="OIL (Objects in a Line)">
+			<p>
+			OIL (Objects in a Lile) provides a queue API and its implementation which is required by many server applications which stores client requests permanently in order.  OIL provides:
+			<ul>
+				<li><strong>Queue</strong> which provides sequential access.</li>
+				<li><strong>Index</strong> which provides random access based on <code>java.util.Map</code></li>
+			</ul>
+			</p>
+		</section>
+		<section name="Features">
+			<p>
+			With OIL, you can:
+			<ul>
+				<li><strong>Random-access queues</strong>: Useful for
+				<ul>
+					<li>Canceling scheduled requests</li>
+					<li>Searching queue items by specific key value</li>
+				</ul></li>
+				<li><strong>Embed persistent object store</strong>:
+				<ul>
+					<li>The default implementation provides thread-safe WAL (Write-Ahead Logging) persistance with high performance.</li>
+					<li>You can create your own implementation.</li>
+				</ul></li>
+			</ul>
+			</p>
+		</section>
+		<section name="Getting Started">
+			<p>
+			Please read these documents to learn how to use OIL:
+			<ul>
+				<li><a href="usage.html">Usage</a></li>
+				<li><a href="apidocs/index.html">API Documentation</a></li>
+			</ul>
+			</p>
+		</section>
+		<section name="Stay tuned!">
+			<p>
+			Do you want to know when new version of OIL comes out? Please subscribe at <a href="http://freshmeat.net/projects/oil/">Freshmeat.net project page</a>.
+			</p>
+		</section>
+	</body>
+</document>

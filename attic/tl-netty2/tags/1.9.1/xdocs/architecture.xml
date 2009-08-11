@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+	<properties>
+		<title>Architecture</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+	<body>
+		<section name="Architecture">
+			<img src="images/architecture.png"/>
+			<p>
+				<ul>
+					<li><em>I/O Processor</em> performs I/O operations, interprets them into session events, and passes them to <em>EventDispatcher</em>.</li>
+					<li><em>EventDispatcher</em> dispatches events to corresponding <em>SessionListener</em>s.</li>
+					<li>Reading message always involves <em>MessageRecognizer</em> which finds the proper <em>Message</em> object to read the incoming data from socket channel.</li>
+				</ul>
+			</p>
+		</section>
+		<section name="Message Interface">
+			<p>
+				<em>Message</em> is the atom unit of communication in Netty. it provides the methods to read/write message from/to buffer. Please see <a href="apidocs/index.html">API Documentation</a> for detailed description of <em>Message</em>.
+			</p>
+		</section>
+		<section name="Receiving Messages">
+			<img src="images/sequence-diagram-receive.png"/>
+			<p>
+				<em>MessageRecognizer</em> was not drawn here for brevity.
+			</p>
+		</section>
+		<section name="Sending Messages">
+			<img src="images/sequence-diagram-send.png"/>
+		</section>
+	</body>
+</document>

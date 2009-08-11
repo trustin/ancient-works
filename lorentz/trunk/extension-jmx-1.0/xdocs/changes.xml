@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <title>Changes</title>
+        <author email="trustin@gleamynode.net">Trustin Lee</author>
+    </properties>
+
+    <body>
+        <!-- action types are add/update/fix/remove -->
+        <release version="2.0.0" date="2005-07-31">
+        	<action dev="trustin" type="update">
+        		Renamed to Lorentz from TL-convert.
+        	</action>
+        	<action dev="trustin" type="update">
+        		Revamped API to support object-to-object conversion.
+        	</action>
+        </release>
+		<release version="1.0.2" date="2005-03-02">
+			<action dev="trustin" type="update">
+				ConversionException is now a RuntimeException.
+			</action>
+			<action dev="trustin" type="fix">
+				UrlConverter is not registered by default.
+			</action>
+		</release>
+        <release version="1.0.1" date="2004-08-02">
+        	<action dev="trustin" type="add">
+        		CharsetConverter
+        	</action>
+        	<action dev="trustin" type="fix">
+        		StringCollectionConverter and StringMapConverter could not convert empty string.
+        	</action>
+        	<action dev="trustin" type="update">
+        		StringCollectionConverter and StringMapConverter does not permit a trailing comma anymore.
+        	</action>
+        </release>
+        <release version="1.0.0" date="2004-07-19">
+        	<action dev="trustin" type="add">
+        		The first release
+        	</action>
+        </release>
+    </body>
+</document>
+

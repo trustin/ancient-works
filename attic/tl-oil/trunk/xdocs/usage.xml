@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+	<properties>
+		<title>Overview</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+	<body>
+		<section name="Opening Database">
+			<p>
+			<source>
+import java.util.Properties;
+import net.gleamynode.oil.*;
+import net.gleamynode.oil.impl.wal.*;
+
+Database db = new WalDatabase();
+Properties props = new Properties();
+props.setProperty("logStore.file", "test.db");
+db.setProperties(props);
+db.open();</source>
+			</p>
+		</section>
+		<section name="Closing Database">
+			<p>
+			<source>
+Database db = ...;
+db.close();
+</source>
+			</p>
+		</section>
+		<section name="Defragmenting Database">
+			<p>
+			Simple example:
+<source>
+// open
+Database db = ...;
+...
+db.open();
+
+// and defragment
+db.defragment();
+</source>
+			</p>
+			<p>
+			Scheduled defragmentation:
+<source>
+// open
+Database db = ...;
+...
+db.open();
+
+// and shedule
+ScheduledDefragmentor defragger = new ScheduledDefragmentor(db);
+defragger.schedule(new HourlySchedule(5)); // every 5 o'clock am
+</source>
+			</p>
+		</section>
+		<section name="Accessing Queues">
+			<p>
+<source>
+Database db = ...;
+
+// Get (or create) a queue named 'myqueue'
+Queue myQueue = db.getQueue("myqueue");
+
+// Push item
+for (int i = 0; i &lt; 10; i++) {
+	myQueue.push(new Integer(i));
+}
+
+// Iterate items
+QueueIterator it = myQueue.iterator();
+while (it.next()) {
+	Integer i = (Integer) it.getValue();
+	System.out.println(i);
+	if (i.intValue() % 2 == 0)
+		it.remove(); // remove only evens
+}
+
+// Move items to the other queue
+Queue yourQueue = db.getQueue("yourqueue");
+it = myQueue.iterator();
+while (it.next()) {
+	it.moveTo(yourQueue);
+}
+</source>
+			</p>
+		</section>
+		<section name="Accessing Indices">
+			<p>
+<source>
+Database db = ...;
+
+// Get (or create) an index named 'myindex'
+Index myIndex = db.getQueue("myindex");
+
+// Put entries
+for (int i = 0; i &lt; 10; i++) {
+	myIndex.put(new Integer(i), new Integer(i * i));
+}
+
+// Get an entry
+System.out.println("3 ** 2 is: " + myIndex.get(new Integer(3)));
+
+// Iterate entries
+IndexIterator it = myIndex.iterator();
+while (it.next()) {
+	Integer key = (Integer) it.getKey();
+	Integer value = (Integer) it.getValue();
+	System.out.println(key + " ** 2 is: " + value);
+	it.remove();
+}
+</source>
+			</p>
+		</section>
+		<section name="Random-accessing Queues">
+			<p>
+<source>
+Queue queue = ...;
+Index index = ...;
+
+// Get a reference
+QueueReference ref = queue.push("Needle");
+
+// Remember the reference using an index
+index.put("Magnifier", ref);
+...
+
+// and remove by key
+String needle = (String) queue.remove((QueueReference) index.get("Magnifier"));
+</source>
+			</p>
+		</section>
+	</body>
+</document>

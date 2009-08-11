@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+	<properties>
+		<title>FAQ</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+	<body>
+		<section name="Frequently Asked Questions">
+=			<subsection name="I created Session, but nothing happens.">
+				<p>
+				Please make sure you:
+					<ol>
+						<li>started IoProcessor and EventDispatcher that you specified in Session constructor.</li>
+						<li>added your SessionListener implementations using Session.addSessionListener(SessionListener).</li>
+						<li>called Session.start()</li>
+					</ol>
+				Here's the example:
+<source>IoProcessor iop = new IoProcessor();
+iop.start();
+OrderedEventDispatcher dispatcher = new OrderedEventDispatcher();
+dispatcher.start();
+...
+
+Session session = new Session(...);
+session.addSessionListener(mySessionListener);
+session.start();</source>
+				</p>
+			</subsection>
+			<subsection name="Session.write(Message) does not write messages to channel.">
+				<p>
+				Please make sure that:
+				<ul>
+					<li>the session is connected. If the channel is not connected or 'connectionEstablished' event is not fired yet, write() will return false.</li>
+					<li>the session is not closed before writing the message.</li>
+					<li>you closed the session after 'messageSent' event for the message is fired.  Session.close() closes the connection discarding the write message queue.</li>
+				</ul>
+				</p>
+			</subsection>
+			<subsection name="Session.getChannel() returns null.">
+				<p>
+				Session.getChannel() returns null if and only if the connection is closed.  You immediately lost the accessibility to the underlying SocketChannel, but you can use Session.getSocketAddress()/isClosed()/isConnected() to get some useful information.
+				</p>
+			</subsection>
+			<subsection name="How can I know the socket address when Session.getChannel() returns null?">
+				<p>
+				Please use Session.getSocketAddress().
+				</p>
+			</subsection>
+			<subsection name="I only want to implement server(or client) side protocol, how should I do?">
+				<p>
+				It is OK to implement only required read() or write() method.  Implement only Message.read() method if and only if you only receive the message.  Implement only Message.write() method if and only if you only send the message.
+				</p>
+			</subsection>
+			<subsection name="I used OrderedEventDispatcher, but 'messageReceived' for the response message is fired before 'messageSent' for the request message is.">
+				<p>
+				OrderedEventDispatcher does not guarantee read and write events are fired in order, but
+				it does guarantee that the same type of events will be fired in order.  I can't find
+				any easy way to order read and write events for now; please let me know. :)
+				</p>
+			</subsection>
+			<subsection name="ClosedChannelException is thrown after the session is closed.">
+				<p>
+ 				This is the case when WriteController tries to write a message after the session is closed.
+ 				You can do something with this exception, or can just ignore it.  You'll be able to
+ 				get the message that was being written using Session.getWritingMessage() method.
+ 				</p>
+			</subsection>
+			<subsection name="I need UDP/PipeChannel/MockObject support.">
+				<p>
+				The development of Netty2 is stopped.  There will be no further feature improvement.
+				Please read the <a href="index.html">front page</a> which contains information about
+				<a href="http://directory.apache.org/subprojects/network/">The Apache MINA Project</a>,
+				Netty NG.
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

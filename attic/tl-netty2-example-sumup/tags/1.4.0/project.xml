@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<pomVersion>3</pomVersion>
+
+	<name>Netty 2 SumUp Example</name>
+	<id>tl-netty2-example-sumup</id>
+	<currentVersion>1.4.0</currentVersion>
+	<inceptionYear>2004</inceptionYear>
+	<package>net.gleamynode.netty2.example.sumup</package>
+	<organization>
+		<name>Trustin Lee</name>
+		<url>http://gleamynode.net/</url>
+	</organization>
+
+	<shortDescription>Netty 2 SumUp Example</shortDescription>
+	<description>
+		Netty 2 SumUp Example
+	</description>
+
+	<developers>
+		<developer>
+			<name>Trustin Lee</name>
+			<id>trustin</id>
+			<email>trustin@gleamynode.net</email>
+			<organization>Arreo Communications, Inc.</organization>
+			<roles>
+				<role>Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+	
+	<repository>
+		<connection>scm:svn:http://amiryo.com/svn/trustin:tl-netty2-netty2-example-sumup/trunk</connection>
+		<developerConnection>scm:svn:https://amiryo.com/svn/trustin:tl-netty2-example-sumup/trunk</developerConnection>
+	</repository>
+
+	<dependencies>
+		<dependency>
+			<id>tl-netty2</id>
+			<version>1.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>directory-network</groupId>
+			<artifactId>mina</artifactId>
+			<version>0.7-SNAPSHOT</version>
+			<url>http://directory.apache.org/subprojects/network/mina/</url>
+		</dependency>
+		<dependency>
+			<id>commons-logging</id>
+			<version>1.0.4</version>
+		</dependency>
+		<dependency>
+			<id>log4j</id>
+			<version>1.2.8</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<nagEmailAddress>trustin@gleamynode.net</nagEmailAddress>
+		<sourceDirectory>src/main</sourceDirectory>
+	</build>
+
+	<reports>
+		<report>maven-license-plugin</report>
+		<report>maven-javadoc-plugin</report>
+		<report>maven-changes-plugin</report>
+		<report>maven-jxr-plugin</report>
+	</reports>
+</project>

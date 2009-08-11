@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Changes</title>
+        <author email="trustin@gleamynode.net">Trustin Lee</author>
+    </properties>
+
+    <body>
+
+        <!-- action types are add/update/fix/remove -->
+	<release version="0.4.1" date="2004-11-29">
+		<action dev="trustin" type="fix">
+			The methods of ByteBuffers now accepts field length of 0.
+		</action>
+	</release>
+	<release version="0.4.0" date="2004-10-28">
+		<action dev="trustin" type="add">
+			ByteBuffers.fill methods.
+		</action>
+	</release>
+	<release version="0.3.3" date="2004-10-26">
+		<action dev="trustin" type="fix">
+			ByteBuffers.readDecimal sometimes moves buffer position inaccurately.
+		</action>
+	</release>
+        <release version="0.3.2" date="2004-07-23">
+        	<action dev="trustin" type="fix">
+        		ByteBuffers.read/write didn't support UTF-16 strings.
+        	</action>
+        </release>
+        <release version="0.3.1" date="2004-06-10">
+        	<action dev="trustin" type="update">
+        		Replaced inefficient 'if' clauses to '&amp; 0xff' idiom.
+        	</action>
+        </release>
+        <release version="0.3.0" date="2004-05-13">
+            <action dev="trustin" type="add">
+                RegexFileFilter
+            </action>
+        </release>
+
+        <release version="0.2.0" date="2004-04-19">
+            <action dev="trustin" type="add">
+                ByteArrayInputStream
+            </action>
+        </release>
+
+        <release version="0.1.0" date="2004-04-14">
+            <action dev="trustin" type="add">
+                Initial release
+            </action>
+        </release>
+    </body>
+</document>
+

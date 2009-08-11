@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <pomVersion>3</pomVersion>
+  <artifactId>tl-oil</artifactId>
+  <name>Objects in a Line</name>
+  <groupId>tl-oil</groupId>
+  <id>tl-oil</id>
+  <currentVersion>1.1-SNAPSHOT</currentVersion>
+  <inceptionYear>2004</inceptionYear>
+  <package>net.gleamynode.oil</package>
+  <organization>
+    <name>Trustin Lee</name>
+    <url>http://gleamynode.net/</url>
+  </organization>
+  <shortDescription>A queue API and its implementation</shortDescription>
+  <description>
+    OIL (Objects in a Line) provides a queue API and its implementation which is
+    required by many server applications which stores user requests permanently in
+    order.
+  </description>
+  <siteAddress>gleamynode.net</siteAddress>
+  <siteDirectory>
+    /home/hosting_users/anoripi/www/dev/tl-oil/docs
+  </siteDirectory>
+  <distributionDirectory>
+    /home/hosting_users/anoripi/www/dev/tl-oil/distributions
+  </distributionDirectory>
+  <developers>
+    <developer>
+      <name>Trustin Lee</name>
+      <id>trustin</id>
+      <email>trustin@gleamynode.net</email>
+      <organization>Arreo Communications, Inc.</organization>
+      <url>http://gleamynode.net/dev/</url>
+      <timezone>+9</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Sang-phil Moon</name>
+      <organization>Arreo Communications, Inc.</organization>
+      <url>http://jinzzaa.amiryo.com/</url>
+      <timezone>+9</timezone>
+    </contributor>
+  </contributors>
+  <dependencies>
+    <dependency>
+      <groupId>tl-io</groupId>
+      <artifactId>tl-io</artifactId>
+      <version>0.4.0</version>
+      <url>http://gleamynode.net/dev/projects/io/</url>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <version>1.3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <nagEmailAddress>trustin@gleamynode.net</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/Abstract*.java</exclude>
+        <exclude>**/Big*Test.java</exclude>
+      </excludes>
+    </unitTest>
+    <jars />
+  </build>
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-simian-plugin</report>
+  </reports>
+</project>
+

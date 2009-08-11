@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+	<properties>
+		<title>Getting Started</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+	<body>
+		<section name="Preface">
+			<p>
+			This guide book will tell you how to program a network application (both client and server) using <a href="http://gleamynode.net/dev/tl-netty2/docs/">Netty 2</a>.  I'll introduce simple <em>SumUp</em> protocol, which is used for integer summation.  Examining the source code specified here step-by-step, you'll get to know every feature of Netty 2.
+			</p>
+			<p>
+			Please refer to:
+			<ul>
+				<li><a href="http://gleamynode.net/dev/tl-netty2/docs/architecture.html">Overall architecture and sequence diagrams</a> to understand overall mechanism</li>
+				<li><a href="http://gleamynode.net/dev/tl-netty2/docs/apidocs/index.html">API documentation</a> for the detailed usage of Netty 2 API.</li>
+			</ul>
+			</p>
+		</section>
+		<section name="Migration to MINA">
+			<p>
+			<a href="http://directory.apache.org/subprojects/network/">The Apache MINA Project</a>
+			is a major improvement over Netty which is developed from scratch by Trustin Lee.
+			Netty is deprecated by MINA, so Netty users are recommended to migrate to MINA.  Netty
+			1.9.0 or above provides a simple bridge API for you to reuse your <code>Message</code> and
+			<code>MessageRecognizer</code> implementations.  Please refer to <a href="xref/net/gleamynode/netty2/example/sumup/mina/package-summary.html">the migrated SumUp source code</a>.
+			You'll get to know it is a trivial process.
+			</p>
+		</section>
+		<section name="SumUp Protocol">
+			<p>
+			SumUp server sums up all values from ADD message that a client sends, and returns RESULT messages for each of them.  Both messages consist of two parts; header and body.
+			</p>
+			<p>
+			<img src="images/message-structure.png"/>
+			</p>
+			<p>
+			Header contains type and sequence field. type identifies the message type (0 for RESULT message,  1 for ADD).  sequence is used to pair ADD and RESULT messages; the sequence value of RESULT message will be the same with the one of corresponding ADD message.
+			</p>
+			<subsection name="ADD Message">
+			<p>
+			ADD message contains the value to sum up in the body.
+			</p>
+			<p>
+			<img src="images/add-message.png"/>
+			</p>
+			</subsection>
+			<subsection name="RESULT Message">
+			<p>
+			RESULT message has variable body length.  If state is OK, it will contain the sum value. Otherwise, state is ERROR and there will be no additional fields.  Error occurs when the sum overflows or underflows.
+			</p>
+			<p>
+			<img src="images/result-ok-message.png"/>
+			</p>
+			<p>
+			<img src="images/result-error-message.png"/>
+			</p>
+			</subsection>
+		</section>
+		<section name="Implementing Message Recognizer">
+			<p>
+			<a href="http://gleamynode.net/dev/tl-netty2/docs/apidocs/net/gleamynode/netty2/MessageRecognizer.html">MessageRecognizer</a> finds the appropriate <a href="http://gleamynode.net/dev/tl-netty2/docs/apidocs/net/gleamynode/netty2/Message.html">Message</a> that can read the incoming data.  I implemented SumUpMessageRecognizer both in client and server mode because we will implement both client and server:
+				<ul>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/SumUpMessageRecognizer.html">SumUpMessageRecognizer.java</a></li>
+				</ul>
+			</p>
+		</section>
+		<section name="Implementing Messages">
+			<p>
+			<img src="images/class-hierarchy.png"/>
+			</p>
+			<p>
+			We have to implement two messages: ADD and RESULT.  Both of them has common header, so it is better to implement a common message class and then to extend it:
+				<ul>
+					<li><a href="http://gleamynode.net/dev/tl-netty2/docs/apidocs/net/gleamynode/netty2/Message.html">Message (JavaDoc)</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/AbstractMessage.html">AbstractMessage.java</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/AddMessage.html">AddMessage.java</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/ResultMessage.html">ResultMessage.java</a></li>
+				</ul>
+			</p>
+		</section>
+		<section name="Implementing protocol workflow">
+			<p>
+			Once messages and their recognizer is implemented, implementing server and client is very very easy.  Please see the source code and JavaDoc listed below, and you'll understand how to implement protocol workflow in Netty 2.
+			</p>
+			<subsection name="Implementing Server">
+				<p>
+				<ul>
+					<li><a href="http://gleamynode.net/dev/tl-netty2/docs/apidocs/net/gleamynode/netty2/SessionListener.html">SessionListener (JavaDoc)</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/Server.html">Server.java</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/ServerSessionListener.html">ServerSessionListener.java</a></li>
+				</ul>
+				</p>
+				<p>
+				To run the SumUp server, type: (assumes CLASSPATH is properly set)
+				<source>java net.gleamynode.netty2.example.sumup.Server</source>
+				</p>
+				<p>
+				Example output:
+				<source>
+04-08-21 17:17:28 INFO  [Server] Listening on port 8080
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] Connection established.
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 0:ADD(1)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 1:ADD(2)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 2:ADD(3)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 3:ADD(4)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 4:ADD(5)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 5:ADD(6)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 6:ADD(7)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 7:ADD(8)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 8:ADD(9)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] RCVD: 9:ADD(10)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 0:RESULT(1)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 1:RESULT(3)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 2:RESULT(6)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 3:RESULT(10)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 4:RESULT(15)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 5:RESULT(21)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 6:RESULT(28)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 7:RESULT(36)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 8:RESULT(45)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] SENT: 9:RESULT(55)
+04-08-21 17:17:33 INFO  [ServerSessionListener] [/127.0.0.1:51258] Connection closed.</source>
+				</p>
+			</subsection>
+			<subsection name="Implementing Client">
+				<p>
+				<ul>
+					<li><a href="http://gleamynode.net/dev/tl-netty2/docs/apidocs/net/gleamynode/netty2/SessionListener.html">SessionListener (JavaDoc)</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/Client.html">Client.java</a></li>
+					<li><a href="xref/net/gleamynode/netty2/example/sumup/ClientSessionListener.html">ClientSessionListener.java</a></li>
+				</ul>
+				</p>
+				<p>
+				To run the SumUp client, type: (assumes CLASSPATH is properly set)
+				<source>java net.gleamynode.netty2.example.sumup.Client <em>&lt;numbers to sum up&gt;</em></source>
+				</p>
+				<p>
+				Example output:
+<source>
+$ java net.gleamynode.netty2.example.sumup.Client 1 2 3 4 5 6 7 8 9 10
+
+04-08-21 17:17:33 INFO  [Client] Connecting to localhost/127.0.0.1:8080
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] Connection established.
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 0:ADD(1)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 1:ADD(2)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 2:ADD(3)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 3:ADD(4)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 4:ADD(5)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 5:ADD(6)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 6:ADD(7)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 7:ADD(8)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 8:ADD(9)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] SENT: 9:ADD(10)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 0:RESULT(1)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 1:RESULT(3)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 2:RESULT(6)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 3:RESULT(10)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 4:RESULT(15)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 5:RESULT(21)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 6:RESULT(28)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 7:RESULT(36)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 8:RESULT(45)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] RCVD: 9:RESULT(55)
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] The sum: 55
+04-08-21 17:17:33 INFO  [ClientSessionListener] [localhost/127.0.0.1:8080] Connection closed.</source>
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

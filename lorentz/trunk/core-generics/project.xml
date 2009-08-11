@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+    <extend>${basedir}/../project.xml</extend>
+    <artifactId>lorentz-core-generics</artifactId>
+
+	<name>Lorentz Core for post-1.5 JVMs</name>
+	<shortDescription>
+	    Lorentz Core for post-1.5 JVMs
+	</shortDescription>
+	<description>
+		Lorentz Core API that runs on post-1.5 JVMs.
+	</description>
+</project>

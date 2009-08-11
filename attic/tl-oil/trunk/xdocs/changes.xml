@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Changes</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+
+	<body>
+		<!-- action types are add/update/fix/remove -->
+		<release version="1.0.0" date="2004-11-23">
+			<action dev="trustin" type="add">
+				The first release.
+			</action>
+		</release>
+	</body>
+</document>

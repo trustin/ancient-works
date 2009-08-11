@@ -1,0 +1,9 @@
+#!/bin/sh
+export LANG=en_US.UTF-8
+H="`dirname $0`"
+java \
+  -server -Xms8m -Xmx768m -XX:+AggressiveOpts -XX:+UseBiasedLocking \
+  -XX:+UseParallelGC -XX:+UseFastAccessorMethods \
+  -cp "$H/target/classes:$H/lib/commons-httpclient-3.1.jar:$H/lib/continuum-xmlrpc-api-1.2.2.jar:$H/lib/continuum-xmlrpc-client-1.2.2.jar:$H/lib/xmlrpc-client-3.1.1.jar:$H/lib/xmlrpc-common-3.1.1.jar:$H/lib/ws-commons-util-1.0.2.jar" \
+  net.gleamynode.continuum.tool.BuildResultReaper \
+  "$@"

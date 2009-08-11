@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<pomVersion>3</pomVersion>
+
+	<name>Trustin Lee's String/Object Converter</name>
+	<id>tl-convert</id>
+	<currentVersion>1.0.2</currentVersion>
+	<inceptionYear>2004</inceptionYear>
+	<package>net.gleamynode.convert</package>
+	<organization>
+		<name>Trustin Lee</name>
+		<url>http://gleamynode.net/</url>
+	</organization>
+
+	<shortDescription>Trustin Lee's String/Object Conversion Framework</shortDescription>
+	<description>
+		Trustin Lee's String/Object Conversion Framework.  See API documentation for now.  Further documentation is pending.
+	</description>
+
+	<developers>
+		<developer>
+			<name>Trustin Lee</name>
+			<id>trustin</id>
+			<email>trustin@gleamynode.net</email>
+			<organization>Arreo Communications, Inc.</organization>
+			<roles>
+				<role>Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+	
+	<dependencies>
+		<dependency>
+			<id>mx4j</id>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<id>junit</id>
+			<version>3.8.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<nagEmailAddress>trustin@gleamynode.net</nagEmailAddress>
+		<sourceDirectory>src/main</sourceDirectory>
+				<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+		<unitTest>
+			<includes>
+				<include>**/*Test.java</include>
+			</includes>
+			<excludes>
+				<exclude>**/Abstract*.java</exclude>
+			</excludes>
+		</unitTest>
+		<jars/>
+	</build>
+
+	<reports>
+		<report>maven-license-plugin</report>
+		<report>maven-javadoc-plugin</report>
+		<report>maven-changes-plugin</report>
+		<report>maven-jxr-plugin</report>
+		<report>maven-junit-report-plugin</report>
+		<report>maven-simian-plugin</report>
+	</reports>
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project default="jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:ant="jelly:ant">
+
+	<preGoal name="dist:build-src">
+		<ant:copy todir="${maven.dist.src.assembly.dir}">
+			<ant:fileset dir=".">
+				<ant:include name="xdocs/**"/>
+			</ant:fileset>
+		</ant:copy>
+	</preGoal>
+
+	<preGoal name="dist:build-bin">
+		<attainGoal name="site"/>
+	</preGoal>
+</project>

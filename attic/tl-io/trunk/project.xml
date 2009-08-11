@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<pomVersion>3</pomVersion>
+
+	<name>Trustin Lee's I/O Toolkit</name>
+	<id>tl-io</id>
+	<currentVersion>0.4.1</currentVersion>
+	<inceptionYear>2004</inceptionYear>
+	<package>net.gleamynode.io</package>
+	<organization>
+		<name>Trustin Lee</name>
+		<url>http://gleamynode.net/</url>
+	</organization>
+
+	<shortDescription>A set of I/O utility classes</shortDescription>
+	<description>
+		This package contains useful I/O utility classes both for java.io and java.nio package.
+	</description>
+
+	<siteAddress>gleamynode.net</siteAddress>
+	<siteDirectory>
+		/home/hosting_users/anoripi/www/dev/tl-io/docs
+	</siteDirectory>
+	<distributionDirectory>
+		/home/hosting_users/anoripi/www/dev/tl-io/distributions
+	</distributionDirectory>
+
+	<developers>
+		<developer>
+			<name>Trustin Lee</name>
+			<id>trustin</id>
+			<email>trustin@gleamynode.net</email>
+			<organization>Arreo Communications, Inc.</organization>
+			<roles>
+				<role>Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+
+	<build>
+		<nagEmailAddress>trustin@gleamynode.net</nagEmailAddress>
+		<sourceDirectory>src/java</sourceDirectory>
+	</build>
+	
+	<reports>
+		<report>maven-license-plugin</report>
+		<report>maven-javadoc-plugin</report>
+		<report>maven-changes-plugin</report>
+		<report>maven-jxr-plugin</report>
+	</reports>
+</project>

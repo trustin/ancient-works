@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <title>Changes</title>
+        <author email="trustin@gleamynode.net">Trustin Lee</author>
+    </properties>
+
+    <body>
+    	<section name="TL-convert">
+			<p>
+			Trustin Lee's String/Object Converter provides a simple API to convert Java objects into strings and vice versa. It is developed to replace Jakarta Commons BeanUtils and Jakarta Commons Convert and to provide only String/Object converters.
+			</p>
+		</section>
+		<section name="Usage">
+			<subsection name="Converting an object to a string">
+<p><source>
+import net.gleamynode.convert.*;
+
+String value = Converter.toString(myObject);
+</source></p>
+			</subsection>
+			<subsection name="Converting a string to an object">
+<p><source>
+import net.gleamynode.convert.*;
+
+// The second parameter is the conversion target class.
+// stringList will contain {"a", "b", "c"}.
+List stringList = Converter.toObject("a, b, c", List.class);
+</source></p>
+			</subsection>
+			<subsection name="Basic converters">
+				<p>
+				TL-convert provides these converters:
+				<ul>
+					<li>Basic types:
+						<ul>
+							<li>BigDecimal</li>
+							<li>BigInteger</li>
+							<li>Boolean</li>
+							<li>Byte</li>
+							<li>Character</li>
+							<li>Class - the class will be located using Class.forName(String).</li>
+							<li>Double</li>
+							<li>File</li>
+							<li>Float</li>
+							<li>InetAddress - converter will use InetAddress.getHostAddress().</li>
+							<li>Integer</li>
+							<li>Locale - language[_country[_variant]]</li>
+							<li>Long</li>
+							<li>Short</li>
+							<li>String</li>
+							<li>TimeZone</li>
+							<li>URL</li>
+						</ul>
+					</li>
+					<li>Complex types:
+						<ul>
+							<li>Collection&lt;String&gt;</li>					
+							<li>List&lt;String&gt;</li>
+							<li>Set&lt;String&gt;</li>
+							<li>Map&lt;String,String&gt;</li>
+							<li>Properties</li>
+						</ul>
+					</li>
+				</ul>
+				All collections and maps can be converted if its elements (or keys/values) are convertable to String using TL-convert,
+				and String can be converted into collections and maps whose elements (or keys/values) are Strings.
+				
+				<table>
+					<tr>
+						<th>Type</th>
+						<th>String representation</th>
+					</tr>
+					<tr>
+						<td>Collection</td>
+						<td>a, "", "a,b", "quotation mark: """</td>
+					</tr>
+					<tr>
+						<td>Map</td>
+						<td>a=b,c="",d="""Trustin Lee"", he called me.", e="e=mc^2"</td>
+					</tr>
+				</table>
+				Please note that the element which contains '"' must be quoted with '"' and wrapped '"'s must be escaped with double '"'s;
+				this notation is exactly same with that of CSV file format.
+				</p>
+			</subsection>
+			<subsection name="Optional converters">
+				<p>
+				TL-convert checks these types are available in the current VM, and creates and registers the converters of te available types:
+				<ul>
+					<li>Charset (JDK 1.4 or above)</li>
+					<li>Currency (JDK 1.4 or above)</li>
+					<li>InetSocketAddress (JDK 1.4 or above)</li>
+					<li>Pattern (JDK 1.4 or above)</li>
+					<li>ObjectName (Java Management eXtenstions)</li>
+				</ul>
+				</p>
+			</subsection>
+			<subsection name="Creating your own converter">
+				<p>
+				Please create a class that extends net.gleamynode.convert.Converter.
+				You'll have to implement both toString(Object) and toObject(String),
+				and invoke Converter.register(Converter) method.
+				</p>
+			</subsection>
+		</section>
+    </body>
+</document>

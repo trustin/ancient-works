@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+    <extend>${basedir}/../project.xml</extend>
+    <artifactId>lorentz-extension-jmx-1.0</artifactId>
+
+	<name>Lorentz Converter Extension for JMX 1.0</name>
+	<shortDescription>
+	    Lorentz Converter Extension for JMX 1.0
+	</shortDescription>
+	<description>
+		Lorentz Converter Extension for JMX 1.0
+	</description>
+	
+	<dependencies>
+	    <dependency>
+	        <groupId>lorentz</groupId>
+	        <artifactId>lorentz-core</artifactId>
+	        <version>3.0.0-SNAPSHOT</version>
+	    </dependency>
+        <dependency>
+            <groupId>mx4j</groupId>
+            <artifactId>mx4j</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+    	<resources>
+    		<resource>
+    			<directory>src/resources</directory>
+    		</resource>
+    	</resources>
+    </build>
+</project>

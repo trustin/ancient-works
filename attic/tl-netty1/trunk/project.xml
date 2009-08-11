@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<pomVersion>3</pomVersion>
+
+	<name>Netty 1</name>
+	<id>tl-netty1</id>
+	<currentVersion>1.0.6</currentVersion>
+	<inceptionYear>2004</inceptionYear>
+	<package>net.gleamynode.netty</package>
+	<organization>
+		<name>Trustin Lee</name>
+		<url>http://gleamynode.net/</url>
+	</organization>
+
+	<shortDescription>Event-driven Network Application Framework</shortDescription>
+	<description>
+		This package provides an easy event-based API (like Swing) to develop high-performance, maintainable TCP/IP server/client application.  Netty handles many essential features such as readiness selection, thread pooling, and buffer reuse which are required to build high- performance and capacity network applications.
+	</description>
+
+	<siteAddress>gleamynode.net</siteAddress>
+	<siteDirectory>
+		/home/hosting_users/anoripi/www/dev/tl-netty1/docs
+	</siteDirectory>
+	<distributionDirectory>
+		/home/hosting_users/anoripi/www/dev/tl-netty1/distributions
+	</distributionDirectory>
+
+	<developers>
+		<developer>
+			<name>Trustin Lee</name>
+			<id>trustin</id>
+			<email>trustin@gleamynode.net</email>
+			<organization>Arreo Communications, Inc.</organization>
+			<roles>
+				<role>Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+	
+	<dependencies>
+		<dependency>
+			<id>tl-io</id>
+			<version>0.3.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<nagEmailAddress>trustin@gleamynode.net</nagEmailAddress>
+		<sourceDirectory>src/main</sourceDirectory>
+	</build>
+
+	<reports>
+		<report>maven-license-plugin</report>
+		<report>maven-javadoc-plugin</report>
+		<report>maven-changes-plugin</report>
+		<report>maven-jxr-plugin</report>
+	</reports>
+</project>

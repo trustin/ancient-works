@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+	<pomVersion>3</pomVersion>
+
+	<name>Lorentz</name>
+	<id>lorentz</id>
+	<currentVersion>2.0.0</currentVersion>
+	<inceptionYear>2004</inceptionYear>
+	<package>net.gleamynode.conversion</package>
+	<organization>
+		<name>Trustin Lee</name>
+		<url>http://gleamynode.net/</url>
+	</organization>
+
+	<shortDescription>A Generic Object Conversion Framework</shortDescription>
+	<description>
+		Lorentz is a generic object conversion framework which can convert
+		an object of one type to an object of another type.
+	</description>
+    <siteAddress>gleamynode.net</siteAddress>
+	<siteDirectory>
+		/home/hosting_users/anoripi/www/dev/lorentz/docs
+	</siteDirectory>
+	<distributionDirectory>
+		/home/hosting_users/anoripi/www/dev/lorentz/distributions
+	</distributionDirectory>
+
+	<developers>
+		<developer>
+			<name>Trustin Lee</name>
+			<id>trustin</id>
+			<email>trustin@gmail.com</email>
+			<organization>The Apache Software Foundation</organization>
+			<roles>
+				<role>Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+	
+	<dependencies>
+		<dependency>
+			<id>mx4j</id>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<id>junit</id>
+			<version>3.8.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<nagEmailAddress>trustin@gmail.com</nagEmailAddress>
+		<sourceDirectory>src/main</sourceDirectory>
+				<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+		<unitTest>
+			<includes>
+				<include>**/*Test.java</include>
+			</includes>
+			<excludes>
+				<exclude>**/Abstract*.java</exclude>
+			</excludes>
+		</unitTest>
+		<jars/>
+	</build>
+
+	<reports>
+		<report>maven-license-plugin</report>
+		<report>maven-javadoc-plugin</report>
+		<report>maven-changes-plugin</report>
+		<report>maven-jxr-plugin</report>
+		<report>maven-junit-report-plugin</report>
+		<report>maven-simian-plugin</report>
+	</reports>
+</project>

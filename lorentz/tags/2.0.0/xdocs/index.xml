@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <title>Overview</title>
+        <author email="trustin@gleamynode.net">Trustin Lee</author>
+    </properties>
+
+    <body>
+   	<section name="Lorentz: A Generic Object Conversion Framework">
+   	    <subsection name="What is Lorentz?">
+			<p>
+			Lorentz is a generic object-to-object conversion framework.
+			It provides a simple API to convert a Java objects of one type
+			into an object of another type.  It is developed to replace
+			all existing conversion frameworks: JavaBeans PropertyEditor,
+			<a href="http://jakarta.apache.org/commons/sandbox/convert/">Jakarta Commons-Convert</a>,
+			and <a href="http://jakarta.apache.org/commons/beanutils/">Jakarta Commons-BeanUtils</a>
+			converters.
+			</p>
+    		<p>
+		        Here's the feature list:
+		        <ul>
+		            <li><b>Extensible</b> - can be used to convert everything:
+		                <ul>
+		                    <li>Currency/unit conversion</li>
+		                    <li>Bean conversion</li>
+		                </ul>
+		            </li>
+		            <li>Many default string-related converter implementations</li>
+		            <li><b>Smart conversion engine</b> - can perform complex
+		                conversions by combining multiple small converters
+		                intelligently. (e.g. 'A-&gt;C' is translated into
+		                'A-&gt;B-&gt;C' automatically if required.)</li>
+		        </ul>
+		    </p>
+        </subsection>
+        <subsection name="History">
+			<p>
+			Lorentz was originally 'Trustin Lee's String-Object Converter'.
+			It had provided only string-object conversions.  I redesigned
+			the API and renamed it to 'Lorentz' releasing version 2.0.
+			</p>
+			<p>
+			Lorentz was named after the Dutch physicist and mathematician Hendrik
+			Antoon Lorentz (1853-1928), who discovered the Lorentz transformation
+			which forms the basis for the special theory of relativity.
+			<a href="http://en.wikipedia.org/wiki/Lorentz_transformation">More...</a>
+		    </p>
+		</subsection>
+		</section>
+		<section name="Usage">
+			<subsection name="Converting an object to another">
+<p><source>
+import net.gleamynode.conversion.*;
+
+Integer i = new Integer(1234);
+BigInteger bi = (Integer) Converter.convert(i, BigInteger.class);
+</source></p>
+			</subsection>
+			<subsection name="Creating a custom converter">
+<p>
+First, create a class that extends {@link Converter}.
+<source>
+public MyConverter extends Converter {
+    public MyConverter() {
+        super(FromType.class, ToType.class);
+    }
+    
+    public Object convert(Object o) throws Exception {
+        // Insert your conversion code here.
+        ...
+        return result;
+    }
+}
+</source>
+</p>
+<p>
+To register/deregister the converter you've created:
+<source>
+Converter.register(new MyConverter()); // Register
+Converter.deregister(FromType.class, ToType.class); // Deregister
+</source>
+</p>
+<p>
+Now you can convert between your custom types:
+<source>
+FromType f = ...;
+ToType t = (ToType) Converter.convert(f, ToType.class);
+</source>
+</p>
+			</subsection>
+			<subsection name="Basic converters">
+				<p>
+				Lorentz provides these converters:
+				<ul>
+					<li>Basic types:
+						<ul>
+							<li>BigDecimal</li>
+							<li>BigInteger</li>
+							<li>Boolean</li>
+							<li>Byte</li>
+							<li>Character</li>
+							<li>Class - the class will be located using Class.forName(String).</li>
+							<li>Double</li>
+							<li>File</li>
+							<li>Float</li>
+							<li>InetAddress - converter will use InetAddress.getHostAddress().</li>
+							<li>Integer</li>
+							<li>Locale - language[_country[_variant]]</li>
+							<li>Long</li>
+							<li>Short</li>
+							<li>String</li>
+							<li>TimeZone</li>
+							<li>URL</li>
+        					<li>Charset</li>
+		        			<li>Currency</li>
+		        			<li>InetSocketAddress</li>
+			        		<li>Pattern</li>
+				        </ul>
+					</li>
+					<li>Complex types:
+						<ul>
+							<li>Collection&lt;String&gt;</li>					
+							<li>List&lt;String&gt;</li>
+							<li>Set&lt;String&gt;</li>
+							<li>Map&lt;String,String&gt;</li>
+							<li>Properties</li>
+						</ul>
+					</li>
+				</ul>
+				All collections and maps can be converted if its elements (or keys/values) are convertable to String using Lorentz,
+				and the String can be converted into collections and maps whose elements (or keys/values) are Strings.
+				
+				<table>
+					<tr>
+						<th>Type</th>
+						<th>String representation</th>
+					</tr>
+					<tr>
+						<td>Collection</td>
+						<td>a, "", "a,b", "quotation mark: """</td>
+					</tr>
+					<tr>
+						<td>Map</td>
+						<td>a=b,c="",d="""Trustin Lee"", he called me.", e="e=mc^2"</td>
+					</tr>
+				</table>
+				Please note that the element which contains '"' must be quoted with '"' and wrapped '"'s must be escaped with double '"'s;
+				this notation is exactly same with that of CSV file format.
+				</p>
+			</subsection>
+			<subsection name="Optional converters">
+				<p>
+				Lorentz checks these types are available in the current VM, and creates and registers the converters of te available types:
+				<ul>
+					<li>ObjectName (Java Management eXtenstions)</li>
+				</ul>
+				</p>
+			</subsection>
+		</section>
+    </body>
+</document>

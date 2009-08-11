@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Changes</title>
+		<author email="trustin@gleamynode.net">Trustin Lee</author>
+	</properties>
+
+	<body>
+		<!-- action types are add/update/fix/remove -->
+		<release version="1.9.2" date="2005-06-08">
+			<action dev="trustin" type="fix">
+				Netty2-MINA bridge decoder sometimes fall in infinite loop.
+			</action>
+		</release>
+		<release version="1.9.1" date="2005-05-30">
+			<action dev="trustin" type="fix">
+				Netty2-MINA bridge decoder sometimes fall in infinite loop.
+			</action>
+		</release>
+		<release version="1.9.0" date="2005-04-18">
+			<action dev="trustin" type="add">
+				Added compatibility bridge for MINA
+			</action>
+			<action dev="trustin" type="fix">
+				Fixed infinite loop when the current message being sent isn't
+				100% written to the write buffer and the socket buffer is full.
+				(Thanks to David Phillips)
+			</action>
+		</release>
+		<release version="1.8.0" date="2004-11-24">
+			<action dev="trustin" type="add">
+				ExceptionMonitor to handle exceptions unhandled by Netty
+			</action>
+			<action dev="trustin" type="add">
+				Session.write() method now supports timeout.
+			</action>
+			<action dev="trustin" type="fix">
+				MessageParseException.buffer was not thread safe.
+			</action>
+			<action dev="trustin" type="fix">
+				Write queue and WriteController emits signal inefficiently.
+			</action>
+			<action dev="trustin" type="fix">
+				fire() method of thread-pooled event dispatchers were not thread safe.
+			</action>
+		</release>
+		<release version="1.7.4" date="2004-10-21">
+			<action dev="trustin" type="update">
+				Deprecated IoProcessor.readTries property. (Thanks to J-F Daune)
+			</action>
+			<action dev="trustin" type="fix">
+				Session.write(Message) didn't work.
+			</action>
+			<action dev="trustin" type="fix">
+				IoProcessor.stop() sometimes throws NullPointerException. (Thanks to GimbalLock)
+			</action>
+			<action dev="trustin" type="fix">
+				Socket read/write buffer size is not the same with the ByteBuffer size. (Thanks to GimbalLock)
+			</action>
+		</release>
+		<release version="1.7.3" date="2004-09-28">
+			<action dev="trustin" type="add">
+				MessageParseException constructors with a cause (Thanks to Morgan Hankins)
+			</action>
+			<action dev="trustin" type="update">
+				IoProcessor threads are daemon threads now. (Thanks to Morgan Hankins)
+			</action>
+			<action dev="trustin" type="update">
+				Apache Commons Logging is optional in runtime now. (except for SessionLog)
+			</action>
+			<action dev="trustin" type="update">
+				Added 'synchronized' modifier to Session.add/removeSessionListener()
+			</action>
+			<action dev="trustin" type="fix">
+				SessionConfig.writeTimeout property didn't work. (Thanks to C. Helck)
+			</action>
+		</release>
+		<release version="1.7.2" date="2004-09-06">
+			<action dev="trustin" type="fix">
+				EventQueue is not thread-safe (Thanks to Morgan Hankins)
+			</action>
+			<action dev="trustin" type="fix">
+				Session.write() sometimes blocks forever when SessionConfig.maxQueuedWriteCount is enabled.
+			</action>
+		</release>
+		<release version="1.7.1" date="2004-09-01">
+			<action dev="trustin" type="add">
+				Added a default constructor to Session to make it a mock object (Thanks to Morgan Hankins)
+			</action>
+			<action dev="trustin" type="update">
+				The interface of EventDispatcher and internal event queue
+				implementation has been improved heavily.
+			</action>
+			<action dev="trustin" type="fix">
+				LowLatencyEventDispatcher caused I/O threads to block.
+			</action>
+			<action dev="trustin" type="fix">
+				Session.start() sometimes returned false in SessionListener.exceptionCaught().
+			</action>
+			<action dev="trustin" type="fix">
+				Session starts even when some properties are not set.
+			</action>
+		</release>
+		<release version="1.7.0" date="2004-08-21">
+			<action dev="trustin" type="add">
+				SessionServer
+			</action>
+			<action dev="trustin" type="add">
+				SessionLog that helps Apache Jakarta Commons Logging
+			</action>
+			<action dev="trustin" type="add">
+				MessageParseException.getMessage() appends hexdump of the the buffer content to help debugging.
+			</action>
+			<action dev="trustin" type="update">
+				Uses Apache Jakarta Commons Logging for logging.
+			</action>
+			<action dev="trustin" type="update">
+				Session.isConnectionPending() returns if and only if the connection is really in progress.
+			</action>
+			<action dev="trustin" type="fix">
+				Deadlock caused by Session.waitForConnectionEstablishedFired() (Thanks to Hongshan Liu)
+			</action>
+			<action dev="trustin" type="remove">
+				Session.waitForConnectionEstablishedFired().
+			</action>
+		</release>
+		<release version="1.6.1" date="2004-08-16">
+			<action dev="trustin" type="update">
+				Session.isConnectionPending() also returns true when the connection is established but connectionEstablished event is not fired yet.
+			</action>
+			<action dev="trustin" type="update">
+				FAQ
+			</action>
+			<action dev="trustin" type="fix">
+				NullPointerException is sometimes thrown while closing sessions and writing into the closed session under heavy load.
+			</action>
+			<action dev="trustin" type="fix">
+				ReadController fires connectionClosed event before firing exceptionCaught event.
+			</action>
+			<action dev="trustin" type="fix">
+				Calling Session.start() sometimes fails in SessionListener.connectionClosed().
+			</action>
+		</release>
+		<release version="1.6.0" date="2004-08-10">
+			<action dev="trustin" type="add">
+				SessionConfig.byteOrder property
+			</action>
+			<action dev="trustin" type="add">
+				New constructors to work with lightweight containers which provides settet injection.
+			</action>
+			<action dev="trustin" type="add">
+				Session.setChannel(SocketChannel) to reuse server-side sessions
+			</action>
+			<action dev="trustin" type="update">
+				Applied workaround for http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4729342 (Thanks to Assen Sotirov)
+			</action>
+			<action dev="trustin" type="fix">
+				Netty didn't work at all if sessions close many times :(
+			</action>
+			<action dev="trustin" type="fix">
+				Broken JMX compliance
+			</action>
+			<action dev="trustin" type="fix">
+					idleTime didn't work when Netty handles many sessions. (Thanks to Christophe Graulle)
+			</action>
+			<action dev="trustin" type="fix">
+				I/O worker threads didn't start in very fast machines. Possibily duplicate with OSX problem.
+			</action>
+			<action dev="trustin" type="fix">
+				ReadController treats the closed server channel as a new client connection. (Thanks to Mike G Brown)
+			</action>
+			<action dev="trustin" type="fix">
+				Deadlock when writing messages in SessionListener.connectionEstablished()
+			</action>
+		</release>
+		<release version="1.5.1" date="2004-07-30">
+			<action dev="trustin" type="fix">
+				Incompatibility with IoC containers (See http://opensource.atlassian.com/projects/spring/browse/SPR-233)
+			</action>
+		</release>
+		<release version="1.5.0" date="2004-07-19">
+			<action dev="trustin" type="add">
+				FAQ document
+			</action>
+			<action dev="trustin" type="add">
+				ThreadPooledEventDispatcher interface.
+			</action>
+			<action dev="trustin" type="update">
+				JavaDoc comments
+			</action>
+			<action dev="trustin" type="update">
+				Session.fireXXX() is now public to allow users to implement their own event dispatchers.
+			</action>
+			<action dev="trustin" type="update">
+				Refactored duplicate codes.
+			</action>
+			<action dev="trustin" type="fix">
+				Performance degradation when updating interestOps. (Thanks to kama)
+			</action>
+			<action dev="trustin" type="fix">
+				Possible NullPointerException when IoProcessor stops. (Thanks to David Weitzman)
+			</action>
+			<action dev="trustin" type="fix">
+				Thread priority might not change as user requested.
+			</action>
+		</release>
+		<release version="1.4.1" date="2004-07-15">
+			<action dev="trustin" type="fix">
+				Possible bug if client connects to a port on localhost (Thanks to Bulent Erdemir)
+			</action>
+		</release>
+		<release version="1.4.0" date="2004-07-14">
+			<action dev="trustin" type="add">
+				LowLatencyEventDispatcher to use Netty in low-latency situation
+			</action>
+			<action dev="trustin" type="update">
+				Lowered the priority of controller threads
+			</action>
+			<action dev="trustin" type="fix">
+				Excessive CPU consumtion occurs when the write buffer is full.
+			</action>
+			<action dev="trustin" type="fix">
+				Partial message writing didn't work. (Thanks to kama)
+			</action>
+		</release>
+		<release version="1.3.0" date="2004-07-03">
+			<action dev="trustin" type="add">
+				Write-event throttling
+			</action>
+			<action dev="trustin" type="add">
+				writeTimeout property to drop slow clients
+			</action>
+			<action dev="trustin" type="add">
+				Thread priorities are adjustable even if the thread pool is started already now.
+			</action>
+			<action dev="trustin" type="add">
+				JMX-compliance!
+			</action>
+			<action dev="trustin" type="update">
+				Session configuration is separated to SessionConfig. Old getters and setters are deprecated.
+			</action>
+			<action dev="trustin" type="fix">
+				Partial writes didn't work.
+			</action>
+		</release>
+		<release version="1.2.0" date="2004-06-29">
+			<action dev="trustin" type="update">
+				Refactored IoProcessor and Session
+			</action>
+			<action dev="trustin" type="fix">
+				Direct ByteBuffer leak
+			</action>
+			<action dev="trustin" type="fix">
+				NullPointerException is somtimes thrown when the channel is closed.
+			</action>
+		</release>
+		<release version="1.1.1" date="2004-06-13">
+			<action dev="trustin" type="add">
+				Getting started guide to lower learning curve
+			</action>
+			<action dev="trustin" type="fix">
+				Compilation errors from Eclipse 2.1.
+			</action>
+			<action dev="trustin" type="remove">
+				Echo client/server example was replaced with SumUp client/server example in overview page.
+			</action>
+		</release>
+		<release version="1.1.0" date="2004-06-09">
+			<action dev="trustin" type="add">
+				Full JavaDoc comments and overall architecture/sequence diagram.
+			</action>
+			<action dev="trustin" type="add">
+				Session can attempt connection by itself now (with connect timeout)
+			</action>
+			<action dev="trustin" type="add">
+				Echo Server example now contains both client and server.
+			</action>
+			<action dev="trustin" type="add">
+				Session is reusable now; calling start() after the connection is closed will work fine.
+			</action>
+			<action dev="trustin" type="add">
+				More getters for Session and IoProcessor
+			</action>
+			<action dev="trustin" type="update">
+				Session.lastBusyTime is renamed to lastIoTime
+			</action>
+			<action dev="trustin" type="fix">
+				IoProcessor did not stop controller threads.
+			</action>
+			<action dev="trustin" type="fix">
+				IoProcessor.controllerThreadPriority property didn't work.
+			</action>
+			<action dev="trustin" type="fix">
+				IoProcessor didn't read messages with more than one packet correctly.
+			</action>
+		</release>
+		<release version="1.0.0" date="2004-06-07">
+			<action dev="trustin" type="add">
+				The first release.
+			</action>
+		</release>
+	</body>
+</document>

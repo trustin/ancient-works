@@ -1,0 +1,94 @@
+<project
+  default="test"
+  xmlns:define="jelly:define"
+  xmlns:ant="jelly:ant"
+  xmlns:doc="doc"
+  xmlns:j="jelly:core"  
+  xmlns:jxr="jxr"
+  xmlns:maven="jelly:maven"
+  xmlns:util="jelly:util">
+
+  <preGoal name="dist:build-src">
+    <ant:copy todir="${maven.dist.src.assembly.dir}">
+      <ant:fileset dir=".">
+        <ant:include name="xdocs/**"/>
+      </ant:fileset>
+    </ant:copy>
+  </preGoal>
+
+  <preGoal name="dist:build-bin">
+    <attainGoal name="site"/>
+  </preGoal>
+
+  <!-- EMMA Hooks -->
+  <goal name="emma:backup-main">
+    <ant:copy todir="${maven.build.dest}.orig">
+      <ant:fileset dir="${maven.build.dest}"/>
+    </ant:copy>
+  </goal>
+  <goal name="emma:backup-test">
+    <ant:copy todir="${maven.test.dest}.orig">
+      <ant:fileset dir="${maven.test.dest}"/>
+    </ant:copy>
+  </goal>
+
+  <goal name="emma:restore-main">
+    <ant:delete dir="${maven.build.dest}.emma"/>
+    <ant:move todir="${maven.build.dest}.emma">
+      <ant:fileset dir="${maven.build.dest}" />
+    </ant:move>
+    <ant:move todir="${maven.build.dest}">
+      <ant:fileset dir="${maven.build.dest}.orig"/>
+    </ant:move>
+  </goal>
+  <goal name="emma:restore-test">
+    <ant:delete dir="${maven.test.dest}.emma"/>
+    <ant:move todir="${maven.test.dest}.emma">
+      <ant:fileset dir="${maven.test.dest}" />
+    </ant:move>
+    <ant:move todir="${maven.test.dest}">
+      <ant:fileset dir="${maven.test.dest}.orig"/>
+    </ant:move>
+  </goal>
+
+  <preGoal name="emma:replace-product-classes">
+    <j:set var="maven.emma.inreport" value="${context.getVariable('maven.emma.inreport')}"/>
+    <j:if test="${context.getVariable('maven.emma.inreport') != 'true'}">
+      <attainGoal name="emma:backup-main"/>
+    </j:if>
+  </preGoal>
+  <postGoal name="emma:replace-product-classes">
+    <j:set var="maven.emma.inreport" value="${context.getVariable('maven.emma.inreport')}"/>
+    <j:if test="${context.getVariable('maven.emma.inreport') != 'true'}">
+      <attainGoal name="emma:restore-main"/>
+    </j:if>
+  </postGoal>
+
+  <preGoal name="emma:replace-testing-classes">
+    <j:set var="maven.emma.inreport" value="${context.getVariable('maven.emma.inreport')}"/>
+    <j:if test="${context.getVariable('maven.emma.inreport') != 'true'}">
+      <attainGoal name="emma:backup-test"/>
+    </j:if>
+  </preGoal>
+  <postGoal name="emma:replace-testing-classes">
+    <j:set var="maven.emma.inreport" value="${context.getVariable('maven.emma.inreport')}"/>
+    <j:if test="${context.getVariable('maven.emma.inreport') != 'true'}">
+      <attainGoal name="emma:restore-test"/>
+    </j:if>
+  </postGoal>
+
+  <preGoal name="emma:realreport">
+    <attainGoal name="test:compile"/>
+    <attainGoal name="emma:backup-main"/>
+    <attainGoal name="emma:backup-test"/>
+    <echo>Turning on EMMA for report generation.</echo>
+    <j:set var="maven.emma.inreport" value="true"/>
+    <attainGoal name="emma:test-with-forced-fork"/>
+  </preGoal>
+  <postGoal name="emma:realreport">
+    <j:set var="maven.emma.inreport" value="false"/>
+    <echo>Turning off EMMA.</echo>
+    <attainGoal name="emma:restore-main"/>
+    <attainGoal name="emma:restore-test"/>
+  </postGoal>
+</project>
